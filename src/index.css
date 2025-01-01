@@ -1,0 +1,41 @@
+.container {
+    max-width: 760px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+}
+
+.text-field {
+    padding: 10px;
+    margin: 5px 0 5px;
+    width: 200px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    background-color: #47b41c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 0 5px;
+    width: 150px;
+    border: 1px solid #1a5a00;
+}
+
+.data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.data-item {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
