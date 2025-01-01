@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import configIndexedDatabase from '../indexeddb/database-config'
 
-export function useDB() {
+function useDB() {
     const [db, setDB] = useState(null)
     const [isDBReady, setDBReady] = useState(false)
 
@@ -10,12 +10,14 @@ export function useDB() {
 
     useEffect(() => {
 
-        function intiDB() {
+        function initDB() {
             const request = indexedDB.open(dbName, dbVersion)
 
             request.onupgradeneeded = () => {
                 const database = request.result
                 if (!database.objectStoreNames.contains(dbTable)) {
+                    console.log('Onupgradeneeded')
+
                     database.createObjectStore(dbTable, { autoIncrement: true, keyPath: 'id' })
                 }
             }
@@ -23,19 +25,18 @@ export function useDB() {
             request.onsuccess = () => {
                 setDB(request.result)
                 setDBReady(true)
+                console.log('DB created/opened successfully')
             }
 
             request.onerror = () => {
                 console.log('Connection Error')
-                setDBReady(true)
+                setDBReady(false)
             }
 
         }
 
-        return () => {
-            if (!db) {
-                intiDB()
-            }
+        if (!db) {
+            initDB()
         }
 
     }, [])
@@ -48,7 +49,7 @@ function getTransaction(db, tableName, mode) {
     return db.transaction(tableName, mode).objectStore(tableName)
 }
 
-export function usePutData(db, tableName, data) {
+function usePutData(db, tableName, data) {
     return new Promise((resolve, reject) => {
         try {
             const store = getTransaction(db, tableName, 'readwrite')
@@ -61,7 +62,7 @@ export function usePutData(db, tableName, data) {
     })
 }
 
-export function useGetAllData(db, tableName) {
+function useGetAllData(db, tableName) {
     return new Promise((resolve, reject) => {
         try {
             const store = getTransaction(db, tableName, 'readonly')
@@ -74,3 +75,5 @@ export function useGetAllData(db, tableName) {
         }
     })
 }
+
+export { useDB, usePutData, useGetAllData }
