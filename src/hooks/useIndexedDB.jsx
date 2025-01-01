@@ -16,8 +16,6 @@ function useDB() {
             request.onupgradeneeded = () => {
                 const database = request.result
                 if (!database.objectStoreNames.contains(dbTable)) {
-                    console.log('Onupgradeneeded')
-
                     database.createObjectStore(dbTable, { autoIncrement: true, keyPath: 'id' })
                 }
             }
@@ -25,7 +23,6 @@ function useDB() {
             request.onsuccess = () => {
                 setDB(request.result)
                 setDBReady(true)
-                console.log('DB created/opened successfully')
             }
 
             request.onerror = () => {

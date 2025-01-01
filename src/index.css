@@ -27,6 +27,20 @@
     border: 1px solid #1a5a00;
 }
 
+.btn:disabled {
+    background-color: #ccc;
+    color: #000;
+    cursor: not-allowed;
+}
+
+.ready{
+    color: green;
+}
+
+.not-ready{
+    color: red;
+}
+
 .data-list {
     display: flex;
     flex-direction: column;
@@ -39,3 +53,4 @@
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
