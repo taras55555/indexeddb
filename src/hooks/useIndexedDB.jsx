@@ -73,4 +73,15 @@ function useGetAllData(db, tableName) {
     })
 }
 
-export { useDB, usePutData, useGetAllData }
+function useDeleteValue(db, tableName, id) {
+    try {
+        const store = getTransaction(db, tableName, 'readwrite')
+        store.delete(id)
+        return id
+    } catch (error) {
+        console.error('Delete value failed: ', error)
+        return null
+    }
+}
+
+export { useDB, usePutData, useGetAllData, useDeleteValue }
